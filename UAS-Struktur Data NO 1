@@ -1,0 +1,42 @@
+1. Soal 1 : Binary Tree (Inorder Traversal)
+Diberikan sebuah binary tree, tuliskan fungsi untuk melakukan inorder traversal (kiri, akar, kanan) dan kembalikan hasil traversal dalam bentuk list.
+
+class TreeNode {
+    constructor(val, left = null, right = null) {
+        this.val = val;
+        this.left = left;
+        this.right = right;
+    }
+}
+
+function inorderTraversal(root) {
+    const result = [];
+    
+    function traverse(node) {
+        if (node === null) {
+            return;
+        }
+        
+        // Traverse ke kiri
+        traverse(node.left);
+        
+        // Kunjungi akar (current node)
+        result.push(node.val);
+        
+        // Traverse ke kanan
+        traverse(node.right);
+    }
+    
+    traverse(root);
+    return result;
+}
+
+Penjelasan:
+1. TreeNode Class: Class ini digunakan untuk membuat node dalam binary tree. Setiap node memiliki nilai (val), dan dua pointer ke anak kiri (left) dan anak kanan (right).
+2. inorderTraversal Function: Fungsi ini menerima root dari binary tree sebagai parameter dan mengembalikan sebuah list yang berisi nilai node-node setelah dilakukan inorder traversal.
+3. traverse Function: Fungsi rekursif ini melakukan traversal:
+  - Pertama, ia akan mengunjungi anak kiri (node.left).
+  - Kemudian, ia akan mengunjungi node saat ini (node.val) dan menambahkannya ke dalam list result.
+  - Terakhir, ia akan mengunjungi anak kanan (node.right).
+4. Membangun Binary Tree: Binary tree dibangun sesuai dengan struktur yang diberikan, dan kemudian fungsi inorderTraversal dipanggil dengan root dari binary tree tersebut.
+5. Output: Hasil dari inorder traversal adalah [1, 3, 2], yang sesuai dengan urutan kiri, akar, kanan.
