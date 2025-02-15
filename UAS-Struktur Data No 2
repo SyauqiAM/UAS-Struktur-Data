@@ -1,0 +1,48 @@
+Untuk menentukan apakah sebuah string yang hanya berisi karakter (, ), {, }, [, dan ] valid atau tidak, kita dapat menggunakan struktur data stack. Stack adalah struktur data yang mengikuti prinsip Last In, First Out (LIFO), yang berarti elemen terakhir yang dimasukkan ke dalam stack akan menjadi elemen pertama yang dikeluarkan.
+
+Berikut adalah langkah-langkah untuk menyelesaikan masalah ini:
+
+1. Inisialisasi stack kosong: Stack akan digunakan untuk menyimpan karakter buka kurung (, {, dan [.
+
+2. Iterasi melalui setiap karakter dalam string:
+
+   - Jika karakter adalah buka kurung ((, {, [), masukkan ke dalam stack.
+
+   - Jika karakter adalah tutup kurung (), }, ]), periksa apakah stack kosong atau tidak. Jika stack kosong, berarti tidak ada buka kurung yang sesuai, sehingga string tidak valid.
+
+   - Jika stack tidak kosong, bandingkan karakter tutup kurung dengan elemen teratas stack. Jika tidak cocok, string tidak valid.
+
+   - Jika cocok, keluarkan elemen teratas stack.
+
+3. Setelah iterasi selesai, periksa apakah stack kosong. Jika stack kosong, berarti semua buka kurung telah ditutup dengan benar, sehingga string valid. Jika stack tidak kosong, berarti ada buka kurung yang tidak ditutup, sehingga string tidak valid.
+
+
+function isValid(s) {
+    const stack = [];
+    const bracketPairs = {
+        ')': '(',
+        '}': '{',
+        ']': '['
+    };
+
+    for (let char of s) {
+        if (char === '(' || char === '{' || char === '[') {
+            stack.push(char);
+        } else if (char === ')' || char === '}' || char === ']') {
+            if (stack.length === 0 || stack[stack.length - 1] !== bracketPairs[char]) {
+                return false;
+            }
+            stack.pop();
+        }
+    }
+
+    return stack.length === 0;
+}
+
+Penjelasan Kode:
+1. bracketPairs: Objek yang memetakan setiap tutup kurung ke buka kurung yang sesuai.
+2. for (let char of s): Iterasi melalui setiap karakter dalam string.
+3. stack.push(char): Jika karakter adalah buka kurung, masukkan ke dalam stack.
+4. stack[stack.length - 1] !== bracketPairs[char]: Jika karakter adalah tutup kurung, periksa apakah elemen teratas stack cocok dengan buka kurung yang sesuai.
+5. stack.pop(): Jika cocok, keluarkan elemen teratas stack.
+6. stack.length === 0: Setelah iterasi selesai, periksa apakah stack kosong. Jika ya, string valid; jika tidak, string tidak valid.
