@@ -1,0 +1,61 @@
+class DoublyListNode {
+    constructor(val, prev = null, next = null) {
+        this.val = val;
+        this.prev = prev;
+        this.next = next;
+    }
+}
+
+function removeElements(head, val) {
+    // Handle the case where the head itself needs to be removed
+    while (head !== null && head.val === val) {
+        head = head.next;
+        if (head !== null) {
+            head.prev = null;
+        }
+    }
+
+    let current = head;
+
+    // Iterate through the list and remove nodes with value equal to val
+    while (current !== null && current.next !== null) {
+        if (current.next.val === val) {
+            current.next = current.next.next;
+            if (current.next !== null) {
+                current.next.prev = current;
+            }
+        } else {
+            current = current.next;
+        }
+    }
+
+    return head;
+}
+
+// Membangun double linked list: 1 <-> 2 <-> 3 <-> 2 <-> 4
+const head = new DoublyListNode(1);
+head.next = new DoublyListNode(2, head);
+head.next.next = new DoublyListNode(3, head.next);
+head.next.next.next = new DoublyListNode(2, head.next.next);
+head.next.next.next.next = new DoublyListNode(4, head.next.next.next);
+
+const newHead = removeElements(head, 2);
+
+let current = newHead;
+while (current !== null) {
+    console.log(current.val); // Output: 1, 3, 4
+    current = current.next;
+}
+
+Penjelasan:
+1. Class DoublyListNode: Ini adalah class untuk membuat node dari double linked list. Setiap node memiliki val (nilai), prev (referensi ke node sebelumnya), dan next (referensi ke node berikutnya).
+
+2. Fungsi removeElements:
+  - Pertama, kita menangani kasus di mana head itu sendiri perlu dihapus. Jika head memiliki nilai yang sama dengan val, kita memindahkan head ke node berikutnya dan mengatur prev dari       head yang baru ke null.
+  - Kemudian, kita melakukan iterasi melalui linked list. Jika node berikutnya (current.next) memiliki nilai yang sama dengan val, kita menghapus node tersebut dengan mengatur                current.next ke current.next.next. Jika current.next tidak null, kita juga mengatur prev dari current.next ke current.
+  - Jika node berikutnya tidak memiliki nilai yang sama dengan val, kita lanjutkan iterasi ke node berikutnya.
+
+3. Penggunaan:
+  - Kita membangun double linked list dengan nilai 1 <-> 2 <-> 3 <-> 2 <-> 4.
+  - Kemudian, kita memanggil fungsi removeElements dengan head dan nilai 2 untuk menghapus semua node dengan nilai 2.
+  - Terakhir, kita mencetak nilai dari linked list yang sudah dimodifikasi.
