@@ -1,0 +1,48 @@
+Berikut adalah implementasi dalam JavaScript:
+
+class MyQueue {
+    constructor() {
+        this.stack1 = [];
+        this.stack2 = [];
+    }
+
+    push(x) {
+        this.stack1.push(x);
+    }
+
+    pop() {
+        if (this.stack2.length === 0) {
+            while (this.stack1.length > 0) {
+                this.stack2.push(this.stack1.pop());
+            }
+        }
+        return this.stack2.pop();
+    }
+
+    peek() {
+        if (this.stack2.length === 0) {
+            while (this.stack1.length > 0) {
+                this.stack2.push(this.stack1.pop());
+            }
+        }
+        return this.stack2[this.stack2.length - 1];
+    }
+
+    empty() {
+        return this.stack1.length === 0 && this.stack2.length === 0;
+    }
+}
+
+Penjelasan:
+1. push(x): Menambahkan elemen x ke stack1.
+
+2. pop():
+
+ - Jika stack2 kosong, pindahkan semua elemen dari stack1 ke stack2. Ini akan membalik urutan elemen sehingga elemen yang pertama masuk ke stack1 akan menjadi elemen yang pertama keluar dari stack2.Kemudian, hapus dan kembalikan elemen terakhir dari stack2.
+
+3. peek():
+Jika stack2 kosong, pindahkan semua elemen dari stack1 ke stack2.
+Kemudian, kembalikan elemen terakhir dari stack2 tanpa menghapusnya.
+
+4. empty(): Kembalikan true jika kedua stack kosong, dan false jika tidak.
+
