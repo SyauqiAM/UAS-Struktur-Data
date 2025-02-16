@@ -1,0 +1,87 @@
+Untuk membalikkan (reverse) sebuah singly linked list, kita dapat menggunakan pendekatan iteratif atau rekursif. 
+Berikut adalah solusi menggunakan pendekatan iteratif:
+
+" Solusi Iteratif "
+
+class ListNode {
+    constructor(val = 0, next = null) {
+        this.val = val;
+        this.next = next;
+    }
+}
+
+function reverseList(head) {
+    let prev = null;
+    let current = head;
+    
+    while (current !== null) {
+        const nextTemp = current.next; 
+        current.next = prev;          
+        prev = current;              
+        current = nextTemp;         
+    }
+    
+    return prev;
+}
+
+const head = new ListNode(1);
+head.next = new ListNode(2);
+head.next.next = new ListNode(3);
+head.next.next.next = new ListNode(4);
+head.next.next.next.next = new ListNode(5);
+
+const reversedHead = reverseList(head);
+
+let current = reversedHead;
+while (current !== null) {
+    console.log(current.val);
+    current = current.next;
+} 
+
+Penjelasan:
+1. Inisialisasi Pointer:
+  - prev diinisialisasi sebagai null karena pada awalnya tidak ada node sebelumnya.
+  - current diinisialisasi sebagai head karena kita mulai dari head linked list.
+
+2. Loop untuk Membalikkan Pointer:
+  - Simpan node berikutnya (nextTemp) sebelum kita mengubah pointer next dari current.
+  - Balikkan pointer next dari current ke prev.
+  - Geser prev ke current.
+  - Geser current ke nextTemp.
+
+3. Return:
+  - Setelah loop selesai, prev akan menjadi head dari linked list yang sudah dibalik.
+
+
+
+-----------------------------------------------------------------------------------------------------------------------
+
+
+
+" Solusi Rekursif "
+
+function reverseListRecursive(head) {
+    if (head === null || head.next === null) {
+        return head;
+    }
+    
+    const reversedHead = reverseListRecursive(head.next);
+    head.next.next = head;
+    head.next = null;
+    
+    return reversedHead;
+}
+
+const reversedHeadRecursive = reverseListRecursive(head);
+
+// Mencetak linked list yang sudah dibalik
+let currentRecursive = reversedHeadRecursive;
+while (currentRecursive !== null) {
+    console.log(currentRecursive.val);
+    currentRecursive = currentRecursive.next;
+}
+
+
+
+
+
